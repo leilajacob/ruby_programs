@@ -4,7 +4,7 @@ complete = false
 
 students.shuffle!
 
-puts "Who came to class today?"
+puts "Who came to class today? (Enter 'done' to end)"
 until complete == true
 	name = gets.chomp.downcase.capitalize
 	if name == "Done"
@@ -20,16 +20,21 @@ num_students = students.length
 puts "Your teams are: "
 
 until count == num_students
-	if num_students % 2 == 1
-		if count < num_students - 3
-			puts "#{students[count]} & #{students[count+1]}"
-		else
-			puts "#{students[count]}, #{students[count+1]} & #{students[count+2]}"
-			break
-		end
-
+	if num_students == 1
+		puts "#{students[0]} is a team of one."
+		break
 	else
-		puts "#{students[count]} & #{students[count+1]}"			
+		if num_students % 2 == 1
+			if count < num_students - 3
+				puts "#{students[count]} & #{students[count+1]}"
+			else
+				puts "#{students[count]}, #{students[count+1]} & #{students[count+2]}"
+				break
+			end
+
+		else
+			puts "#{students[count]} & #{students[count+1]}"			
+		end
 	end
 		count += 2
 end
