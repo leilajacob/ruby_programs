@@ -26,15 +26,9 @@ class Account
 	end
 end
 
-puts "Welcome to Tech Talent Bank"
 @accounts = []
 
 def main_menu
-
-# def make_deposit
-# end
-# def make_withdrawal
-# end
 	puts "Please choose from the following selections: "
 	puts "------------------"
 	puts "1. Create an account"
@@ -86,7 +80,7 @@ def account_lookup
 	puts "Account number..."
 	num = gets.chomp.to_i
 
-	current_acount = ""
+	current_account = ""
 	account_found = false	
 
 	@accounts.each do |acct|
@@ -104,7 +98,7 @@ def account_lookup
 		choice = gets.chomp.downcase
 
 		if choice == "y"
-			acount_lookup
+			account_lookup
 		else
 			main_menu
 		end
@@ -161,11 +155,19 @@ def make_withdrawal(acct)
 	puts "How much would you like to withdrawal today?"
 	withdrawal = gets.chomp.to_f
 
-	acct.withdrawal(withdrawal)
+	if withdrawal > acct.balance
+		puts "insufficient funds."
+		puts "Account balance: #{acct.balance}"
+		puts "Please make smaller withdrawal."
+		sleep(5)
+		make_withdrawal(acct)
+	else
+		acct.withdrawal(withdrawal)
 
-	puts "Your balance is now $#{acct.balance}"
+		puts "Your balance is now $#{acct.balance}"
 
-	return_to_account_menu(acct)
+		return_to_account_menu(acct)
+	end
 end
 
 def return_to_account_menu(acct)
@@ -192,5 +194,6 @@ def return_to_main_menu
 	end
 end
 
-
+puts "Welcome to Tech Talent Bank"
 main_menu
+
