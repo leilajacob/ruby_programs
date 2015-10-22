@@ -60,10 +60,12 @@ def create_employee
 end
 
 def view_employee
-
+	puts "Who's record would you like to view?"
+	name = gets.chomp
 end
 
 def edit_employee
+
 end
 
 def return_to_menu
@@ -76,5 +78,12 @@ def return_to_menu
 		puts "goodbye"
 	end
 end
+
+# def sign_in
+# 	puts "Who would you like to view? "
+# 	puts "Name:" 
+# 	name = gets.chomp
+# 	puts ""
+# end
 
 menu
