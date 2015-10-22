@@ -59,4 +59,22 @@ def create_employee
 	employees.push(new_employee)
 end
 
+def view_employee
+
+end
+
+def edit_employee
+end
+
+def return_to_menu
+	puts "Would you like to return to menu? [y/n]"
+	answer = gets.chomp
+	if answer == "y"
+		menu
+	end 
+	else
+		puts "goodbye"
+	end
+end
+
 menu
