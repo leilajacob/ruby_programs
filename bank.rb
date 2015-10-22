@@ -27,10 +27,10 @@ class Account
 end
 
 puts "Welcome to Tech Talent Bank"
+@accounts = []
 
 def main_menu
-# def create_account
-# end
+
 # def check_balance
 # end
 # def make_deposit
@@ -58,14 +58,26 @@ def main_menu
 	elsif choice == 5
 		end_session
 	else 
+		puts `clear`
 		puts "That is not a valid selection."
 		main_menu
 	end
 end
 
 def end_session
+	puts `clear`
 	puts "Thank you for banking with us!"
 	puts "Goodbye."
+end
+
+def create_account
+	puts "Please provide your name: "
+	name = gets.chomp 	
+	puts "Your initial deposit will be? "
+	balance = gets.chomp.to_f
+	acct_num = @accounts.length + 1
+	new_account = Account.new(name, acct_num ,balance)
+	@accounts.push(new_account)
 end
 
 main_menu
