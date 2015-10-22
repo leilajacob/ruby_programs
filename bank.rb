@@ -169,6 +169,17 @@ def make_deposit(acct)
 	return_to_account_menu
 end
 
+def withdrawal(acct) 
+	puts "How much would you like to withdrawal today?"
+	withdrawal = gets.chomp.to_f
+
+	acct.withdrawal(withdrawal)
+
+	puts "Your balance is now $#{acct.balance}"
+
+	return_to_account_menu
+end
+
 def return_to_account_menu
 
 end
