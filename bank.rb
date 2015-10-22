@@ -80,18 +80,12 @@ def create_account
 	puts new_account.name
 	puts "Account no. #{new_account.acct_num}"
 	puts "$#{new_account.balance}"
-	puts "Return to Main Menu? [y/n]"
-	answer = gets.chomp.downcase
-	if answer == "y"
-		puts `clear`
-		main_menu
-	else 
-		puts `clear`
-		end_session
-	end
+	return_to_main_menu
+
 end
 
 def check_balance
+
 	puts `clear`
 	puts "Please provide..."
 	puts "Name attached to account: "
@@ -103,23 +97,40 @@ def check_balance
 	account_found = false
 
 	@accounts.each do |acct|
-		if name == acct.name && num == acct.acct_num
+		if (name == acct.name) && (num == acct.acct_num)
 			current_account = acct
 			account_found = true
+			puts current_account.name
+			puts "Current balance = $#{current_account.balance}"
+			return_to_main_menu	
 		end
 	end
 	if account_found == false
-	puts "No matching account found."
-	puts "Try again? [y/n]"
-	choice = gets.chomp.downcase
-
-	if choice == "y"
-		check_balance
-	else 
-		main_menu
+		puts "No matching account found."
+		puts "Try again? [y/n]"
+		choice = gets.chomp.downcase
+		if choice == "y"
+			check_balance
+			puts current_account.name
+			puts "Current balance = $#{current_account.balance}"
+			return_to_main_menu	
+		else 
+			main_menu
+		end
 	end
 end
 
+def return_to_main_menu
+	puts "Return to Main Menu? [y/n]"
+	answer = gets.chomp.downcase
+	if answer == "y"
+		puts `clear`
+		main_menu
+	else 
+		puts `clear`
+		end_session
+	end
 end
+
 
 main_menu
