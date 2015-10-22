@@ -142,8 +142,42 @@ def check_balance(acct)
 
 	puts acct.name
 	puts "Current balance = $#{acct.balance}"
-	return_to_main_menu
+	return_to_account_menu(acct)
 
+end
+
+def make_deposit(acct)
+	puts "How much would you like to deposit today?"
+	deposit = gets.chomp.to_f
+
+	acct.deposit(deposit)
+
+	puts "Your balance is now $#{acct.balance}"
+
+	return_to_account_menu(acct)
+end
+
+def make_withdrawal(acct) 
+	puts "How much would you like to withdrawal today?"
+	withdrawal = gets.chomp.to_f
+
+	acct.withdrawal(withdrawal)
+
+	puts "Your balance is now $#{acct.balance}"
+
+	return_to_account_menu(acct)
+end
+
+def return_to_account_menu(acct)
+	puts "Return to Account Menu? [y/n]"
+	answer = gets.chomp.downcase
+	if answer == "y"
+		puts `clear`
+		account_menu(acct)
+	else 
+		puts `clear`
+		end_session
+	end
 end
 
 def return_to_main_menu
@@ -156,32 +190,6 @@ def return_to_main_menu
 		puts `clear`
 		end_session
 	end
-end
-
-def make_deposit(acct)
-	puts "How much would you like to deposit today?"
-	deposit = gets.chomp.to_f
-
-	acct.deposit(deposit)
-
-	puts "Your balance is now $#{acct.balance}"
-
-	return_to_account_menu
-end
-
-def withdrawal(acct) 
-	puts "How much would you like to withdrawal today?"
-	withdrawal = gets.chomp.to_f
-
-	acct.withdrawal(withdrawal)
-
-	puts "Your balance is now $#{acct.balance}"
-
-	return_to_account_menu
-end
-
-def return_to_account_menu
-
 end
 
 
