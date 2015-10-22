@@ -93,9 +93,9 @@ def account_lookup
 		if (name == acct.name) && (num == acct.acct_num)
 			current_account = acct
 			account_found = true
-			puts current_account.name
-			puts "Current balance = $#{current_account.balance}"
-			return_to_main_menu	
+			# puts current_account.name
+			# puts "Current balance = $#{current_account.balance}"
+			# return_to_main_menu	
 		end
 	end
 	if account_found == false
@@ -120,6 +120,7 @@ def account_menu(acct)
 	puts "1. Check Balance"
 	puts "2. Make a Deposit"
 	puts "3. Make a Withdrawal"
+	puts "4. Return to Main Menu"
 
 	choice = gets.chomp.to_i
 
@@ -129,11 +130,12 @@ def account_menu(acct)
 		make_deposit(acct)
 	elsif choice == 3
 		make_withdrawal(acct)
+	elsif choice == 4
+		main_menu
 	else
-		
+		puts "Not a valid selection."
+		account_menu(acct)
 	end
-
-
 end
 
 def check_balance(acct)
@@ -156,11 +158,19 @@ def return_to_main_menu
 	end
 end
 
-def make_deposit
+def make_deposit(acct)
+	puts "How much would you like to deposit today?"
+	deposit = gets.chomp.to_f
 
+	acct.deposit(deposit)
+
+	puts "Your balance is now $#{acct.balance}"
+
+	return_to_account_menu
 end
 
 def return_to_account_menu
+
 end
 
 
