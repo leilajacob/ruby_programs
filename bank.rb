@@ -31,8 +31,6 @@ puts "Welcome to Tech Talent Bank"
 
 def main_menu
 
-# def check_balance
-# end
 # def make_deposit
 # end
 # def make_withdrawal
@@ -78,6 +76,29 @@ def create_account
 	acct_num = @accounts.length + 1
 	new_account = Account.new(name, acct_num ,balance)
 	@accounts.push(new_account)
+	puts "Account created successfully!"
+	puts new_account.name
+	puts "Account no. #{new_account.acct_num}"
+	puts "$#{new_account.balance}"
+	puts "Return to Main Menu? [y/n]"
+	answer = gets.chomp.downcase
+	if answer == "y"
+		puts `clear`
+		main_menu
+	else 
+		puts `clear`
+		end_session
+	end
+end
+
+def check_balance
+	puts `clear`
+	puts "Please provide..."
+	puts "Name attached to account: "
+	name = gets.chomp
+	puts "Account number..."
+	num = gets.chomp.to_i
+	
 end
 
 main_menu
