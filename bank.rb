@@ -38,22 +38,16 @@ def main_menu
 	puts "Please choose from the following selections: "
 	puts "------------------"
 	puts "1. Create an account"
-	puts "2. Check balance"
-	puts "3. Make a deposit"
-	puts "4. Make a withdrawal"
-	puts "5. End session"
+	puts "2. Account menu"
+	puts "3. End session"
 
 	choice = gets.chomp.to_i
 
 	if choice == 1
 		create_account
 	elsif choice == 2
-		check_balance
+		account_lookup
 	elsif choice == 3
-		make_deposit
-	elsif choice == 4
-		make_withdrawal
-	elsif choice == 5
 		end_session
 	else 
 		puts `clear`
@@ -84,8 +78,7 @@ def create_account
 
 end
 
-def check_balance
-
+def account_lookup
 	puts `clear`
 	puts "Please provide..."
 	puts "Name attached to account: "
@@ -94,7 +87,7 @@ def check_balance
 	num = gets.chomp.to_i
 
 	current_acount = ""
-	account_found = false
+	account_found = false	
 
 	@accounts.each do |acct|
 		if (name == acct.name) && (num == acct.acct_num)
@@ -109,13 +102,23 @@ def check_balance
 		puts "No matching account found."
 		puts "Try again? [y/n]"
 		choice = gets.chomp.downcase
+
 		if choice == "y"
-			check_balance
+			acount_lookup
+		else
+			main_menu
+		end
+	else
+
+end
+
+def check_balance
+
+
+		else 
 			puts current_account.name
 			puts "Current balance = $#{current_account.balance}"
 			return_to_main_menu	
-		else 
-			main_menu
 		end
 	end
 end
@@ -130,6 +133,10 @@ def return_to_main_menu
 		puts `clear`
 		end_session
 	end
+end
+
+def make_deposit
+
 end
 
 
