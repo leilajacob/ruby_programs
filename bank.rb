@@ -98,7 +98,28 @@ def check_balance
 	name = gets.chomp
 	puts "Account number..."
 	num = gets.chomp.to_i
-	
+
+	current_acount = ""
+	account_found = false
+
+	@accounts.each do |acct|
+		if name == acct.name && num == acct.acct_num
+			current_account = acct
+			account_found = true
+		end
+	end
+	if account_found == false
+	puts "No matching account found."
+	puts "Try again? [y/n]"
+	choice = gets.chomp.downcase
+
+	if choice == "y"
+		check_balance
+	else 
+		main_menu
+	end
+end
+
 end
 
 main_menu
