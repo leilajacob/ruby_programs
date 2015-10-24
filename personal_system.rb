@@ -1,7 +1,7 @@
 #allows user to add, view, and modify employee records.
 
 class Employee
-	def initialize(name, role, location)
+	def initialize(name,role,location)
 		@name = name
 		@role = role
 		@location = location
@@ -32,10 +32,13 @@ end
 
 def menu
 	puts "Please choose from the following: "
+	puts "----------------"
 	puts "1. Add employee."
 	puts "2. Edit or view an existing employee record."
 	puts "3. End session."
+
 	choice = gets.chomp.to_i
+
 	if choice == 1
 		create_employee
 	elsif choice == 2
@@ -55,7 +58,6 @@ def end_session
 end
 
 def create_employee
-	puts `clear`
 	puts "Please enter the following information: "
 	puts "Name: "
 	name = gets.chomp
@@ -81,14 +83,16 @@ def select_record
 	record_found = false
 
 	@employees.each do |rec|
-	if name == rec.name && location == rec.location
-		current_record = rec
-		record_found = true
+		if name == rec.name && location == rec.location
+			current_record = rec
+			record_found = true
+		end
 	end
 	if record_found == false
 		puts "No record found."
 		puts "Would you like to try again? [y/n]"
 		answer = gets.chomp.downcase
+
 		if answer == "y"
 			select_record
 		else
@@ -100,13 +104,16 @@ def select_record
 end
 
 def record_menu(rec)
-	puts `clear`
+	puts "Welcome back, #{rec.name}!"
 	puts "Please select from the following: "
+	puts "----------------------------------"
 	puts "1. View record."
 	puts "2. Change role."
 	puts "3. Change location."
 	puts "4. Return to main menu."
+	
 	answer = gets.chomp.to_i
+
 	if answer == 1
 		view_employee(rec)
 	elsif answer == 2
@@ -116,21 +123,9 @@ def record_menu(rec)
 	elsif answer == 4
 		menu
 	else 
-		puts `clear`
-		"That is not a valid option."
+		puts "That is not a valid option."
 		record_menu(rec)
 	end 
-end
-
-def return_to_record_menu(rec)
-	puts `clear`
-	puts "Return to record menu? [y/n]"
-	answer = gets.chomp
-	if answer == "y"
-		record_menu(rec)
-	else
-		end_session
-	end
 end
 
 def view_employee(rec)
@@ -147,7 +142,6 @@ def change_role(rec)
 
 	rec.role_change(new_role)
 	puts "The role has been changed to #{rec.role}"
-	sleep(5)
 	return_to_record_menu(rec)
 end
 
@@ -159,13 +153,22 @@ def change_location(rec)
 	rec.transfer(new_location)
 
 	puts "The location has been changed to #{rec.location}"
-	sleep(5)
 	return_to_record_menu(rec)
 end
 
-def return_to_menu
-	puts "Would you like to return to menu? [y/n]"
+def return_to_record_menu(rec)
+	puts "Return to record menu? [y/n]"
 	answer = gets.chomp
+	if answer == "y"
+		record_menu(rec)
+	else
+		end_session
+	end
+end
+
+def return_to_menu
+puts "Would you like to return to menu? [y/n]"
+answer = gets.chomp
 	if answer == "y"
 		menu
 	else
