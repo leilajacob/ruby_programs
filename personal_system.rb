@@ -8,46 +8,54 @@ class Employee
 	end
 
 	def name 
-		@name = name
+		@name
 	end
 
 	def role
-		@role = role
+		@role
 	end 
 
 	def location
-		@location = location
+		@location
 	end
 
-	def transfer(location)
+	def role_change(new_role)
+		@role = new_role
+	end
+
+	def transfer(new_location)
 		@location = new_location
 	end
 end
 
-employees = []
+@employees = []
 
 def menu
 	puts "Please choose from the following: "
 	puts "1. Add employee."
-	puts "2. View employee."
-	puts "3. Edit an existing employee record."
-	puts "4. End session."
+	puts "2. Edit or view an existing employee record."
+	puts "3. End session."
 	choice = gets.chomp.to_i
 	if choice == 1
 		create_employee
 	elsif choice == 2
-		view_employee
+		select_record
 	elsif choice == 3
-		edit_employee
-	elsif choice == 4
-		puts "Goodbye."
+		end_session
 	else
-		puts "That's not a valid option. "
+		puts `clear`
+		puts "That's not a valid option."
 		menu
 	end
 end
 
+def end_session
+	puts `clear`
+	puts "Goodbye."
+end
+
 def create_employee
+	puts `clear`
 	puts "Please enter the following information: "
 	puts "Name: "
 	name = gets.chomp
@@ -56,16 +64,103 @@ def create_employee
 	puts "Location: "
 	location = gets.chomp
 	new_employee = Employee.new(name,role,location)
-	employees.push(new_employee)
+	@employees.push(new_employee)
+	puts "Employee record created successfully."
+	return_to_menu
 end
 
-def view_employee
-	puts "Who's record would you like to view?"
+def select_record
+	puts `clear`
+	puts "Please provide..."
+	puts "The name attached to the account: "
 	name = gets.chomp
+	puts "The location: "
+	location = gets.chomp
+
+	current_record = ""
+	record_found = false
+
+	@employees.each do |rec|
+	if name == rec.name && location == rec.location
+		current_record = rec
+		record_found = true
+	end
+	if record_found == false
+		puts "No record found."
+		puts "Would you like to try again? [y/n]"
+		answer = gets.chomp.downcase
+		if answer == "y"
+			select_record
+		else
+			menu
+		end
+	else
+		record_menu(current_record)
+	end
 end
 
-def edit_employee
+def record_menu(rec)
+	puts `clear`
+	puts "Please select from the following: "
+	puts "1. View record."
+	puts "2. Change role."
+	puts "3. Change location."
+	puts "4. Return to main menu."
+	answer = gets.chomp.to_i
+	if answer == 1
+		view_employee(rec)
+	elsif answer == 2
+		change_role(rec)
+	elsif answer == 3 
+		change_location(rec)
+	elsif answer == 4
+		menu
+	else 
+		puts `clear`
+		"That is not a valid option."
+		record_menu(rec)
+	end 
+end
 
+def return_to_record_menu(rec)
+	puts `clear`
+	puts "Return to record menu? [y/n]"
+	answer = gets.chomp
+	if answer == "y"
+		record_menu(rec)
+	else
+		end_session
+	end
+end
+
+def view_employee(rec)
+	puts rec.name
+	puts rec.role
+	puts rec.location
+	return_to_record_menu(rec)
+end
+
+def change_role(rec)
+	puts `clear`
+	puts "What is the new role?"
+	new_role = gets.chomp
+
+	rec.role_change(new_role)
+	puts "The role has been changed to #{rec.role}"
+	sleep(5)
+	return_to_record_menu(rec)
+end
+
+def change_location(rec)
+	puts `clear`
+	puts "What is the new location?"
+	new_location = gets.chomp
+
+	rec.transfer(new_location)
+
+	puts "The location has been changed to #{rec.location}"
+	sleep(5)
+	return_to_record_menu(rec)
 end
 
 def return_to_menu
@@ -73,17 +168,9 @@ def return_to_menu
 	answer = gets.chomp
 	if answer == "y"
 		menu
-	end 
 	else
-		puts "goodbye"
+		end_session
 	end
 end
-
-# def sign_in
-# 	puts "Who would you like to view? "
-# 	puts "Name:" 
-# 	name = gets.chomp
-# 	puts ""
-# end
 
 menu
